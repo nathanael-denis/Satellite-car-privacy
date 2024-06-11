@@ -14,6 +14,14 @@ For this proof of concept, we relied on an existing solution from R. Cole [1] fo
 
 The bounding boxes are used to derive *a mask*, which corresponds to the area to be removed.  It is then possible to inpaint the corresponding area using open-source stable diffusion. The resulting images is forwarded to a new directory with privacy-preserving images without the cars.
 
+The following image shows a off-nadir UAV capture from Google Earth, with several cars and unveiling house layout:
+![Screenshot 2024-06-10 105028](https://github.com/nathanael-denis/Satellite-car-privacy/assets/43931834/d6efe85c-2fab-4ad5-87ba-42276f8867e6)
+
+We proceed to inpaint the front house layout and remove the cars:
+![US_house_off_nadir_pincel_app_highlights](https://github.com/nathanael-denis/Satellite-car-privacy/assets/43931834/25fa376e-a1ac-4631-82e0-ddaa3ac2147e)
+
+
+
 **Why remove cars in the first place ?**
 
 A diversity of actors may be interested in spotting cars for very different reasons. Some instances are:
