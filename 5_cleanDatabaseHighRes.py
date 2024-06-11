@@ -23,8 +23,10 @@ CLIENT = InferenceHTTPClient(
 )
 
 # Directory paths
-input_dir = r'C:\Code\Satellite-car-privacy-main\database'
-output_dir = r'C:\Code\Satellite-car-privacy-main\generatedImages'
+current_directory = os.getcwd()
+print('cwd:', current_directory)
+input_dir = current_directory + '\database'
+output_dir = current_directory + '\generatedImages'
 mask_dir = os.path.join(output_dir, 'masks')
 generated_dir = os.path.join(output_dir, 'generatedImages')
 

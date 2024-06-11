@@ -26,17 +26,18 @@ CLIENT = InferenceHTTPClient(
     api_key=api_key
 )
 
-init_image_path = r'C:\Code\Satellite-car-privacy-main\Google_Earth\woomed.png'
+current_directory = os.getcwd()
+print('cwd:', current_directory)
+init_image_path =current_directory + '\Google_Earth\woomed.png'
 init_image = PIL.Image.open(init_image_path).convert("RGB")
 new_image = init_image.resize((512, 512)) 
-new_image.save('C:\Code\Satellite-car-privacy-main\Google_Earth\woomed_512.png')
-
-result = CLIENT.infer(r'C:\Code\Satellite-car-privacy-main\Google_Earth\woomed_512.png', model_id="carsandswimmingpool/1")
-
+savepath = current_directory + '\Google_Earth\woomed_512.png'
+new_image.save(savepath)
+result = CLIENT.infer(savepath, model_id="carsandswimmingpool/1")
 print(result)
 
 # Load the initial image from a local file
-init_image_path = r'C:\Code\Satellite-car-privacy-main\Google_Earth\woomed_512.png'
+init_image_path = savepath
 init_image = PIL.Image.open(init_image_path).convert("RGB")
 
 # Initialize the inpainting pipeline
