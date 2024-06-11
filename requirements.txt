@@ -1,0 +1,12 @@
+# Requirements for the script
+
+inference-sdk==1.0.0  # Replace with the actual version you are using if known
+Pillow==9.4.0         # Library for image processing
+requests==2.31.0      # HTTP library for making requests
+opencv-python==4.7.0.72  # Library for computer vision tasks
+torch==2.0.1          # PyTorch library for deep learning
+diffusers==0.17.1     # Library for diffusion models
+matplotlib==3.7.2     # Library for plotting and visualization
+configparser==5.3.0   # Library for handling configuration files
+
+# Also requires Cuda installed, or otherwise delegate computation to the CPU, but will be horrendously long
