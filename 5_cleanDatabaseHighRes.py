@@ -5,17 +5,21 @@ import PIL.ImageDraw
 import torch
 from diffusers import AutoPipelineForInpainting
 import matplotlib.pyplot as plt
-
+import configparser
 '''
 Entering main part of the project, takes a directory holding several satellite images and cleans them by removing the cars.
 
 The resolution are high compared to the training model, resulting in a poor accuracy. 
 '''
+config = configparser.ConfigParser()
+config.read('config.ini')
 
-# Initialize the inference client
+api_key = config['API']['key']
+
+print(api_key)  # Test to see if it reads the key correctly
 CLIENT = InferenceHTTPClient(
     api_url="https://detect.roboflow.com",
-    api_key="Your API Key on Roboflow"
+    api_key=api_key
 )
 
 # Directory paths

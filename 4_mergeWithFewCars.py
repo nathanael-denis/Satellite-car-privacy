@@ -6,7 +6,7 @@ import PIL.ImageDraw
 import torch
 from diffusers import AutoPipelineForInpainting
 import matplotlib.pyplot as plt
-
+import configparser
 '''
 This script merges several masks and apply inpainting only once using the same prompt,
 which should be an issue as the cars can be located in different areas. 
@@ -15,9 +15,15 @@ Yet, the inpainting model is configured to be coherent with its surroundings, an
 as good as inpainting each mask separately. Also, it is much faster and does not bear the risk 
 of creating artifacts
 '''
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+api_key = config['API']['key']
+
+print(api_key)  # Test to see if it reads the key correctly
 CLIENT = InferenceHTTPClient(
-    api_url="https://detect.roboflow.com", 
-    api_key="Your API Key on Roboflow"
+    api_url="https://detect.roboflow.com",
+    api_key=api_key
 )
 
 init_image_path = r'C:\Code\Satellite-car-privacy-main\Google_Earth\car0001_512.png'

@@ -10,7 +10,7 @@ from io import BytesIO
 from diffusers import AutoPipelineForInpainting
 from diffusers.utils import make_image_grid
 import matplotlib.pyplot as plt
-
+import configparser 
 '''
 This script takes as input the image car0001 in the Google_Earth folder, classifies it using the Roboflow API, and then inpaints the detected cars using the Kandinsky model. Should return the inpainted image with the cars removed, with two cars not detected by the Roboflow API.
 
@@ -18,9 +18,15 @@ The quality of the image is altered by the resizing (resolution loss), but the i
 
 '''
  
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+api_key = config['API']['key']
+
+print(api_key)  # Test to see if it reads the key correctly
 CLIENT = InferenceHTTPClient(
     api_url="https://detect.roboflow.com",
-    api_key="Your API Key on Roboflow"
+    api_key=api_key
 )
 
 current_directory = os.getcwd()
@@ -58,7 +64,7 @@ def parse_json(data):
 print('-------------------Classification done--------------')
 
 # Load the initial image from a local file
-init_image_path = r'C:\Code\Satellite-car-privacy-main\Google_Earth\car0001_512.png'
+init_image_path = current_directory + '\Google_Earth\car0001_512.png'
 init_image = PIL.Image.open(init_image_path).convert("RGB")
 
 # Initialize the inpainting pipeline

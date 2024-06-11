@@ -10,23 +10,31 @@ from io import BytesIO
 from diffusers import AutoPipelineForInpainting
 from diffusers.utils import make_image_grid
 import matplotlib.pyplot as plt
-
+import configparser
 '''
 This script try to apply inpainting on an image with more than 5 cars, close to one another, which is a challenging task for the inpainting model. When looping, the image starts to seriously degrade after a few steps, and the cars are not properly removed.
 
 '''
- 
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+api_key = config['API']['key']
+
+print(api_key)  # Test to see if it reads the key correctly
 CLIENT = InferenceHTTPClient(
     api_url="https://detect.roboflow.com",
-    api_key="Your API Key on Roboflow"
+    api_key=api_key
 )
-
-init_image_path = r'C:\Code\Satellite-car-privacy-main\Google_Earth\woomed.png'
+current_directory = os.getcwd()
+print('cwd:', current_directory)
+init_image_path =current_directory + '\Google_Earth\woomed.png'
 init_image = PIL.Image.open(init_image_path).convert("RGB")
 new_image = init_image.resize((512, 512)) 
 new_image.save('C:\Code\Satellite-car-privacy-main\Google_Earth\woomed_512.png')
+savepath = current_directory + '\Google_Earth\woomed_512.png'
+new_image.save(savepath)
+result = CLIENT.infer(savepath, model_id="carsandswimmingpool/1")
 
-result = CLIENT.infer(r'C:\Code\Satellite-car-privacy-main\Google_Earth\woomed_512.png', model_id="carsandswimmingpool/1")
 print(result)
 
 def parse_json(data):

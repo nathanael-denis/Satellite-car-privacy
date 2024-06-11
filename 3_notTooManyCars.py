@@ -6,7 +6,7 @@ import PIL.ImageDraw
 import torch
 from diffusers import AutoPipelineForInpainting
 import matplotlib.pyplot as plt
-
+import configparser
 '''
 This script provides a solution to the issue of having too many cars in the image and 
 loosing all the utility of the original image. Instead of looping and inpainting each car individually,
@@ -15,9 +15,15 @@ the masks are merged and only one inpainting is applied.
 This is much faster, provides a better result and does not bear the risk of creating artifacts, who appear after the 
 4th - 6th step in our tests.
 '''
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+api_key = config['API']['key']
+
+print(api_key)  # Test to see if it reads the key correctly
 CLIENT = InferenceHTTPClient(
     api_url="https://detect.roboflow.com",
-    api_key="Your API Key on Roboflow" 
+    api_key=api_key
 )
 
 init_image_path = r'C:\Code\Satellite-car-privacy-main\Google_Earth\woomed.png'

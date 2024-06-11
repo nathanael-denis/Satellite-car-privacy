@@ -5,19 +5,23 @@ import PIL.ImageDraw
 import torch
 from diffusers import AutoPipelineForInpainting
 import matplotlib.pyplot as plt
+import configparser
 
 '''
-Entering main part of the project, takes a directory holding several satellite images and cleans them by removing the cars.
-
 The images used are the ones used to validate the model, should removed 97% of the car ( model accuracy) but inpainting is 
 also not 100% accurate and may not erase the car properly. Also, inpainting has some distortion effect on some pictures, that are 
 probably related to the training of the inpainting model.
 '''
 
-# Initialize the inference client
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+api_key = config['API']['key']
+
+print(api_key)  # Test to see if it reads the key correctly
 CLIENT = InferenceHTTPClient(
     api_url="https://detect.roboflow.com",
-    api_key="Your API Key on Roboflow"
+    api_key=api_key
 )
 
 # Directory paths
